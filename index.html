@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrophy counter</title>
+  </head>
+  <body>
+    <label for="positive"> Positive </label>
+    <input type="text" name="positive" id="positive" /> <br /><br />
+    <label for="negative"> Negative </label>
+    <input type="text" name="negative" id="negative" /> <br />
+
+    <h1 id="result"></h1>
+    <br />
+
+    <button onclick="Count()">Count</button>
+  </body>
+</html>
+
+<script>
+  function Count() {
+    const positive = Number(document.querySelector('#positive').value)
+    const negative = Number(document.querySelector('#negative').value)
+    const result = document.querySelector('#result')
+
+    let entropy
+
+    if (positive === 0 || negative === 0) {
+      entropy = 0
+      result.innerHTML = entropy
+      return
+    }
+
+    if (positive === negative) {
+      entropy = 1
+      result.innerHTML = entropy
+      return
+    }
+
+    const total = positive + negative
+    const pA = positive / total
+    const pB = negative / total
+
+    // Menghitung entropi menggunakan rumus entropi Shannon
+    entropy = -(pA * Math.log2(pA) + pB * Math.log2(pB))
+
+    result.innerHTML = entropy.toFixed(2)
+  }
+</script>
